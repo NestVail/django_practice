@@ -10,10 +10,12 @@
     <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext"
           rel="stylesheet"
           type="text/css">
-    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <link href="{% static 'css/blog.css' %}?after" rel="stylesheet">
 </head>
 <body>
 <div class="page-header">
+    <a href="{% url 'post_new' %}" class="top-menu">
+        <span class="glyphicon glyphicon-plus"></span></a>
     <h1><a href="{% url 'post_list_home' %}">Django's Blog</a></h1>
 </div>
 <!-- HTML Jooseok -->
