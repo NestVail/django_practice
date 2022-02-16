@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if form.errors %}
-        <p>이름과 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</p>
+        <p class="errorlist">이름과 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</p>
     {% endif %}
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
