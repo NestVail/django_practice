@@ -126,4 +126,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/blog'
