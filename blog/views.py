@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .forms import PostModelForm, PostForm
@@ -28,6 +29,7 @@ def post_detail(request, pk):
 
 
 # 글 등록 (form 사용)
+@login_required
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
