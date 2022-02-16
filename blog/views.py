@@ -27,6 +27,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
+# 글 등록 (form 사용)
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -48,12 +49,26 @@ def post_new(request):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        pass
+        form = PostModelForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail', pk=post.pk)
     else:
         form = PostModelForm(instance=post)
     return render(request, 'blog/post_edit.html', {'postform': form})
 
 
+# 글 삭제
+def post_remove(request, pk):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+    return redirect('post_list_home')
+
+
+# 글 등록 (ModelForm 사용)
 # def post_new_modelform(request):
 #     if request.method == 'POST':
 #         # 데이터 등록 요청
