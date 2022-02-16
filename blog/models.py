@@ -11,7 +11,7 @@ def min_length_2_validator(value):
 
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User',on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200, validators=[min_length_2_validator])
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
