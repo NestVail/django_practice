@@ -45,23 +45,34 @@ def post_new(request):
     return render(request, 'blog/post_edit.html', {'postform': form})
 
 
-def post_new_modelform(request):
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        # 데이터 등록 요청
-        post_form = PostModelForm(request.POST)
-        if post_form.is_valid():
-            # form 객체의 save() 호출함으로써 Model 객체 생성
-            post = post_form.save(commit=False)
-            # 로그인 되어있는 username을 author 필드에 저장
-            post.author = request.user
-            # 현재날짜시간을 게시일자로 저장
-            post.published_date = timezone.now()
-            # post 객체 저장 -> insert 처리
-            post.save()
-            # 등록 후 상세 페이지로 리다이렉션 처리
-            return redirect('post_detail', pk=post.pk)
+        pass
     else:
-        # 등록을 위한 Form 출력
-        post_form = PostModelForm()
+        form = PostModelForm(instance=post)
+    return render(request, 'blog/post_edit.html', {'postform': form})
 
-    return render(request, 'blog/post_edit.html', {'postform': post_form})
+
+# def post_new_modelform(request):
+#     if request.method == 'POST':
+#         # 데이터 등록 요청
+#         post_form = PostModelForm(request.POST)
+#         if post_form.is_valid():
+#             # form 객체의 save() 호출함으로써 Model 객체 생성
+#             post = post_form.save(commit=False)
+#             # 로그인 되어있는 username을 author 필드에 저장
+#             post.author = request.user
+#             # 현재날짜시간을 게시일자로 저장
+#             post.published_date = timezone.now()
+#             # post 객체 저장 -> insert 처리
+#             post.save()
+#             # 등록 후 상세 페이지로 리다이렉션 처리
+#             return redirect('post_detail', pk=post.pk)
+#     else:
+#         # 등록을 위한 Form 출력
+#         post_form = PostModelForm()
+#     return render(request, 'blog/post_edit.html', {'postform': post_form})
+
+
+
