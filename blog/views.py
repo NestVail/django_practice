@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .forms import PostModelForm, PostForm, CommentModelForm
 
-from blog.models import Post
+from blog.models import Post, Comment
 
 
 # Views 내에 선언된 함수 -> HttpRequest 객체를 인자로 Django가 전달해준다
@@ -85,6 +85,21 @@ def add_comment_to_post(request, pk):
     else:
         form = CommentModelForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
+
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.approve()
+    return redirect('post_detail', pk=comment.post.pk)
+
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post_pk = comment.post.pk
+    comment.delete()
+    return redirect('post_detail', pk=post_pk)
 
 
 # 글 등록 (ModelForm 사용)

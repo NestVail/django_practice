@@ -45,6 +45,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title + '(' + str(self.id) + ')'
 
+    # Post가 참조하는 Comment 중에서 승인된 Comment만 Filtering
+    def approved_comments(self):
+        return self.comments.filter(approved_comment=True)
+
     # published_data 필드에 현재 날짜를 저장하는 메서드
     def publish_date(self):
         self.published_date = timezone.now()

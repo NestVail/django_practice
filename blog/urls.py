@@ -14,4 +14,9 @@ urlpatterns = [
     path('post/<int:pk>/remove/', views.post_remove, name='post_remove'),
     # http://localhost:8000/blog/post/(pk)/comment
     path('post/<int:pk>/comment/', views.add_comment_to_post, name='add_comment_to_post'),
+    # http://localhost:8000/blog/post/(pk)/approve
+    path('comment/<int:pk>/approve/', views.comment_approve, name='comment_approve'),
+    # http://localhost:8000/blog/post/(pk)/remove
+    path('comment/<int:pk>/remove/', views.comment_remove, name='comment_remove'),
+
 ]

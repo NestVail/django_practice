@@ -1,16 +1,16 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-{% for post in post_list %}
-<div class="post">
-    <div class="date">
-        <p>published: {{ post.published_date }}</p>
-    </div>
-    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-    <p>{{ post.text | linebreaksbr }}</p>
-    <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
-</div>
-{% empty %}
-<p>Blog에 불러올 글이 없습니다.</p>
-{% endfor %}
+    {% for post in post_list %}
+        <div class="post">
+            <div class="date">
+                <p>published: {{ post.published_date }}</p>
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text | linebreaksbr }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
+        </div>
+    {% empty %}
+        <p>Blog에 불러올 글이 없습니다.</p>
+    {% endfor %}
 {% endblock %}
