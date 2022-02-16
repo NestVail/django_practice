@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 
 # ModelForm 을 상속받는 PostModelForm 클래서 정의
@@ -18,3 +18,9 @@ def min_length_5_validator(value):
 class PostForm(forms.Form):
     title = forms.CharField()
     text = forms.CharField(widget=forms.Textarea, validators=[min_length_5_validator])
+
+
+class CommentModelForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('author', 'text')

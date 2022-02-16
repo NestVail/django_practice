@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <table>
+        <h1>New comment</h1>
+        <form class="post-form" method="POST">{% csrf_token %}
+            <table class="table table-bordered table-hover">
+                {{ form.as_table }}
+            </table>
+            <button class="save btn btn-default" type="submit">Send</button>
+        </form>
+    </table>
+{% endblock %}

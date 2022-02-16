@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .forms import PostModelForm, PostForm
+from .forms import PostModelForm, PostForm, CommentModelForm
 
 from blog.models import Post
 
@@ -71,6 +71,20 @@ def post_remove(request, pk):
     post = Post.objects.get(pk=pk)
     post.delete()
     return redirect('post_list_home')
+
+
+def add_comment_to_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentModelForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post  # 댓글이 속한 post 객체를 comment.post에 명시적으로 넘겨줘야함
+            comment.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = CommentModelForm()
+    return render(request, 'blog/add_comment_to_post.html', {'form': form})
 
 
 # 글 등록 (ModelForm 사용)
